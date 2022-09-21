@@ -11,6 +11,12 @@ const CoinChart = ({ coin }) => {
   // eslint-disable-next-line
   const [days, setDays] = useState(1);
   const [loading, setLoading] = useState(true);
+  const buttonStyling =
+    "bg-neutral py-1 px-2 text-baseContent font-semibold hover:bg-primary hover:text-base100";
+
+  const clickHandler = (e) => {
+    setDays(e.target.value);
+  };
 
   // Get request triggers on page load
   useEffect(() => {
@@ -24,8 +30,7 @@ const CoinChart = ({ coin }) => {
       setLoading(false);
     };
     getHistoricalData();
-    // eslint-disable-next-line
-  }, [days]);
+  }, [days, coin.id]);
 
   // If loading the Loading component is rendered
   return loading ? (
@@ -33,6 +38,46 @@ const CoinChart = ({ coin }) => {
   ) : (
     // Chart cointainer
     <div className="w-full lg:w-2/3">
+      <div className="flex items-center mb-4">
+        <button
+          className={`${buttonStyling} rounded-l-md`}
+          onClick={clickHandler}
+          value={1}
+        >
+          1D
+        </button>
+        <button className={`${buttonStyling}`} onClick={clickHandler} value={7}>
+          7D
+        </button>
+        <button
+          className={`${buttonStyling}`}
+          onClick={clickHandler}
+          value={30}
+        >
+          1M
+        </button>
+        <button
+          className={`${buttonStyling}`}
+          onClick={clickHandler}
+          value={90}
+        >
+          3M
+        </button>
+        <button
+          className={`${buttonStyling}`}
+          onClick={clickHandler}
+          value={180}
+        >
+          6M
+        </button>
+        <button
+          className={`${buttonStyling} rounded-r-md`}
+          onClick={clickHandler}
+          value={365}
+        >
+          1YR
+        </button>
+      </div>
       {/* Line Chart */}
       <Line
         data={{

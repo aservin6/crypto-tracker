@@ -1,6 +1,5 @@
 import Home from "./Pages/Home";
 import CoinPage from "./Pages/CoinPage";
-import Portfolio from "./Pages/Portfolio";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 
 const App = () => {
@@ -11,7 +10,6 @@ const App = () => {
         {/* Switch for each possible path */}
         <Switch>
           <Route path="/coins/:id" component={CoinPage} exact />
-          <Route path="/portfolio" component={Portfolio} exact />
           <Route path="/" component={Home} />
         </Switch>
       </div>

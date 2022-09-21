@@ -26,17 +26,6 @@ const Navbar = () => {
               Home
             </a>
           </li>
-          <li className="pr-3">
-            {/* Links to Portfolio Page */}
-            <a
-              className={`font-semibold hover:underline ${
-                pathName === "/portfolio" ? "text-accent" : "text-baseContent"
-              }`}
-              href="/portfolio"
-            >
-              Portfolio
-            </a>
-          </li>
         </ul>
       </div>
     </nav>
