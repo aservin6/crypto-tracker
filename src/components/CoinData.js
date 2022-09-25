@@ -6,7 +6,7 @@ const CoinData = ({ coin }) => {
   const coinName = coin.name;
   const coinSymbol = coin.symbol.toUpperCase();
   const coinCurrentPriceUSD =
-    coin.market_data.current_price.usd.toLocaleString();
+    coin.market_data.current_price.usd;
   const coinPriceChangePercentage =
     coin.market_data.price_change_percentage_24h.toFixed(2);
   const coinCurrentPriceBTC = coin.market_data.current_price.btc;
@@ -38,9 +38,11 @@ const CoinData = ({ coin }) => {
     <>
       {/* Flex Container */}
       <div className="flex flex-col space-y-4 text-baseContent w-full lg:w-2/3">
-        {/* Coin Rank */}
-        <div className="flex py-1 px-2 bg-neutral rounded-md w-fit text-sm">
-          Rank #{coinRank}
+        <div className="flex items-center justify-between">
+          {/* Coin Rank */}
+          <div className="flex py-1 px-2 bg-neutral rounded-md w-fit text-sm">
+            Rank #{coinRank}
+          </div>
         </div>
 
         {/* Icon, Name, and Symbol */}

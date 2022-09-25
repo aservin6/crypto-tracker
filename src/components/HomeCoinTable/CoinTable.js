@@ -27,7 +27,7 @@ const CoinTable = () => {
   useEffect(() => {
     const getCoins = async () => {
       const { data } = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=10&page=${page}&sparkline=false`
+        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=100&page=${page}&sparkline=false`
       );
       // Request data is stored in coins
       setCoins(data);

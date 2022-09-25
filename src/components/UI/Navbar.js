@@ -11,7 +11,9 @@ const Navbar = () => {
           {/* Icon */}
           <i className="fa-solid fa-rocket text-primary fa-xl"></i>
           {/* Project Name */}
-          <p className="text-baseContent font-bold text-xl md:text-3xl">Crypto Tracker</p>
+          <p className="text-baseContent font-bold text-xl md:text-3xl">
+            Crypto Tracker
+          </p>
         </a>
         {/* Nav Links */}
         <ul className="flex text-xs md:text-base">
@@ -24,6 +26,17 @@ const Navbar = () => {
               href="/"
             >
               Home
+            </a>
+          </li>
+          <li className="pr-3">
+            {/* Links to Homepage */}
+            <a
+              className={`font-semibold hover:underline ${
+                pathName === "/portfolio" ? "text-accent" : "text-baseContent"
+              }`}
+              href="/portfolio"
+            >
+              Portfolio
             </a>
           </li>
         </ul>
