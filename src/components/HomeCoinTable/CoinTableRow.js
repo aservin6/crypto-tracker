@@ -7,7 +7,7 @@ const CoinTableRow = ({ coin }) => {
   const coinId = coin.id;
   const coinName = coin.name;
   const coinSymbol = coin.symbol.toUpperCase();
-  const coinCurrentPrice = coin.current_price.toLocaleString();
+  const coinCurrentPrice = coin.current_price;
   const priceChange = coin.price_change_percentage_24h.toFixed(1);
   const coin24hrVolume = coin.total_volume.toLocaleString();
   const coinMarketCap = coin.market_cap.toLocaleString();

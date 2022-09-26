@@ -9,6 +9,16 @@ const CoinTable = () => {
   const [coins, setCoins] = useState([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
+  const [search, setSearch] = useState("");
+
+  // Handle search function will filter the coins list based on the users search input
+  const handleSearch = () => {
+    return coins.filter(
+      (coin) =>
+        coin.name.toLowerCase().includes(search) ||
+        coin.symbol.toLowerCase().includes(search)
+    );
+  };
 
   // Prev Button handler
   const clickPrevHandler = () => {
@@ -45,9 +55,22 @@ const CoinTable = () => {
     // Container
     <div className="w-full lg:w-2/3">
       {/* Heading */}
-      <h2 className="text-baseContent text-base font-semibold mb-1 md:text-xl">
-        Cryptocurrency Prices by Market Cap{" "}
-      </h2>
+      <div className="flex justify-between items-center">
+        <h2 className="text-baseContent text-base font-semibold mb-1 md:text-xl">
+          Cryptocurrency Prices by Market Cap{" "}
+        </h2>
+        <div className="flex items-center bg-neutral rounded-md pl-2">
+          <i className="fa-solid fa-magnifying-glass text-baseContent"></i>
+          <input
+            onChange={(e) => {
+              setSearch(e.target.value);
+            }}
+            type="text"
+            className="rounded-md py-0.5 px-2 text-white bg-neutral focus:outline-none"
+            placeholder="Search"
+          />
+        </div>
+      </div>
       {/* Table Container */}
       <div className="overflow-auto md:overflow-visible">
         <table className="relative mx-auto container text-xs text-baseContent w-full bg-base100 md:text-sm">
@@ -55,7 +78,7 @@ const CoinTable = () => {
           <CoinTableHead />
           <tbody>
             {/* Renders a CoinTableRow component for each coin */}
-            {coins.map((coin) => {
+            {handleSearch().map((coin) => {
               return <CoinTableRow coin={coin} key={coin.id} />;
             })}
           </tbody>

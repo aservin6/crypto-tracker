@@ -51,15 +51,17 @@ const Modal = (props) => {
         </button>
       </div>
       {/* Sets search state on user input */}
-      <input
-        onChange={(e) => {
-          setSearch(e.target.value);
-        }}
-        className="w-full rounded-md py-2 px-3 text-base100"
-        type="text"
-        placeholder="Search"
-      />
-      
+      <div className="flex items-center bg-white rounded-md pl-3">
+        <i className="fa-solid fa-magnifying-glass text-base100"></i>
+        <input
+          onChange={(e) => {
+            setSearch(e.target.value);
+          }}
+          className="w-full rounded-md py-2 px-3 text-base100 focus:outline-none border-none"
+          type="text"
+          placeholder="Search"
+        />
+      </div>
       <div className="modal-list overflow-y-auto h-full">
         {/* If loading, Loading component is displayed */}
         {loading && <Loading />}
