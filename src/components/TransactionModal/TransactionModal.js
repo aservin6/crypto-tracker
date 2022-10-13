@@ -90,8 +90,8 @@ const TransactionModal = (props) => {
           {props.coin.symbol.toUpperCase()}
         </span>
       </div>
-      <div className="flex justify-between w-full space-x-3">
-        <div className="flex flex-col space-y-1 w-full">
+      <div className="flex justify-between gap-2">
+        <div className="flex flex-col space-y-1 w-[48%]">
           <label className="font-semibold">Quantity</label>
           {/* Quantity state is updated as input value is changed by user */}
           <input
@@ -107,7 +107,7 @@ const TransactionModal = (props) => {
             placeholder="0.00"
           />
         </div>
-        <div className="flex flex-col space-y-1 w-full">
+        <div className="flex flex-col space-y-1 w-[48%]">
           <label className="font-semibold">Price Per Coin</label>
           {/* Price Per Coin state is updated as input value is changed by user */}
           <input

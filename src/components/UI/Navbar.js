@@ -16,7 +16,7 @@ const Navbar = () => {
           </p>
         </a>
         {/* Nav Links */}
-        <ul className="flex text-xs md:text-base">
+        <ul className="flex text-sm md:text-base">
           <li className="pr-3">
             {/* Links to Homepage */}
             <a

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ModalPortal from "./ModalPortal";
-import UserCoinsTable from "../components/UserCoinsTable/UserCoinsTable";
-import TransactionTable from "../components/TransactionTable/TransactionTable";
+import UserCoinsTable from "./UserCoins/UserCoinsTable";
+import TransactionTable from "./Transactions/TransactionTable";
 
 const Portfolio = () => {
   // Portfolio states
@@ -78,6 +78,7 @@ const Portfolio = () => {
     // Sets portfolioValue to totalPortfolioValue that used reducer function
     setPortfolioValue(totalPortfolioValue);
     saveUserData();
+    // eslint-disable-next-line
   }, [transactions]);
 
   return (
@@ -116,19 +117,29 @@ const Portfolio = () => {
       >
         Add Transaction <i className="fa-solid fa-circle-plus"></i>
       </button>
-      <div className="space-y-1">
-        <h2 className="font-bold text-base md:text-xl">Your Coins</h2>
-        {/* Renders UserCoins table and passes in the userCoins array or objects */}
-        <UserCoinsTable userCoins={userCoins} />
-      </div>
-      <div className="space-y-1">
-        <h2 className="font-bold text-base md:text-xl">Transaction List</h2>
-        {/* Renders TransactionTable table and passes in the userCoins array or objects */}
-        <TransactionTable
-          transactions={transactions}
-          setTransactions={setTransactions}
-        />
-      </div>
+      
+      {userCoins.length > 0 ? (
+        <div className="space-y-1">
+          <h2 className="font-bold text-base md:text-xl">Your Coins</h2>
+          {/* Renders UserCoins table and passes in the userCoins array or objects */}
+          <UserCoinsTable userCoins={userCoins} />
+        </div>
+      ) : (
+        <></>
+      )}
+
+      {transactions.length > 0 ? (
+        <div className="space-y-1">
+          <h2 className="font-bold text-base md:text-xl">Transaction List</h2>
+          {/* Renders TransactionTable table and passes in the userCoins array or objects */}
+          <TransactionTable
+            transactions={transactions}
+            setTransactions={setTransactions}
+          />
+        </div>
+      ) : (
+        <></>
+      )}
     </div>
   );
 };

@@ -2,7 +2,7 @@ import React from "react";
 import UserCoinsTableHead from "./UserCoinsTableHead";
 import UserCoinItem from "./UserCoinItem";
 
-const UserCoinsTable = ({ userCoins }) => {
+const UserCoinsTable = ({ userCoins, userCoinsData }) => {
   return (
     // Makes the table scrollable when there is overflow
     <div className="overflow-auto md:overflow-visible">
@@ -13,7 +13,7 @@ const UserCoinsTable = ({ userCoins }) => {
           {/* Maps over the users coins and renders a UserCoinItem for each object */}
           {userCoins.map((coin) => {
             // Passes the coin object along with a key
-            return <UserCoinItem coin={coin} key={coin.id} />;
+            return <UserCoinItem coin={coin} key={coin.id} userCoinsData={userCoinsData} />;
           })}
         </tbody>
       </table>

@@ -1,6 +1,6 @@
 import React from "react";
 
-const UserCoinItem = ({ coin }) => {
+const UserCoinItem = ({ coin, userCoinsData }) => {
   return (
     // A Row is rendered for each of the users coins
     <tr className="h-12 border-t border-white border-opacity-[.12]">

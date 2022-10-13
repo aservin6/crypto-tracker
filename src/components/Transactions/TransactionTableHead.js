@@ -8,7 +8,7 @@ const PortfolioTableHead = () => {
         <th className="text-left px-3">Name</th>
         <th className="text-right px-3">Type</th>
         <th className="text-right px-3">Quantity</th>
-        <th className="text-right px-3">Buy/Sell Price ($USD)</th>
+        <th className="text-right px-3">Buy/Sell Price</th>
         <th className="text-right px-3">Total ($USD)</th>
         <th></th>
       </tr>

@@ -63,10 +63,10 @@ const CoinTable = () => {
           <i className="fa-solid fa-magnifying-glass text-baseContent"></i>
           <input
             onChange={(e) => {
-              setSearch(e.target.value);
+              setSearch(e.target.value.toLowerCase());
             }}
             type="text"
-            className="rounded-md py-0.5 px-2 text-white bg-neutral focus:outline-none"
+            className="rounded-md py-0.5 px-2 text-white bg-neutral focus:outline-none w-full"
             placeholder="Search"
           />
         </div>
