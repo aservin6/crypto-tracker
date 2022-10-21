@@ -10,6 +10,7 @@ const CoinTable = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [search, setSearch] = useState("");
+  const [error, setError] = useState(null);
 
   // Handle search function will filter the coins list based on the users search input
   const handleSearch = () => {
@@ -35,12 +36,17 @@ const CoinTable = () => {
 
   // Get request triggers on page load
   useEffect(() => {
+    setError(null);
     const getCoins = async () => {
-      const { data } = await axios.get(
-        `https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=50&page=${page}&sparkline=false`
-      );
-      // Request data is stored in coins
-      setCoins(data);
+      try {
+        const response = await axios.get(
+          `https://api.coingecko.com/api/v3/coins/markets?vs_currency=USD&order=market_cap_desc&per_page=50&page=${page}&sparkline=false`
+        );
+        // Request data is stored in coins
+        setCoins(response.data);
+      } catch (error) {
+        setError(error.message);
+      }
       // Set loading to false
       setLoading(false);
     };
@@ -72,23 +78,29 @@ const CoinTable = () => {
         </div>
       </div>
       {/* Table Container */}
-      <div className="overflow-auto md:overflow-visible">
-        <table className="relative mx-auto container text-xs text-baseContent w-full bg-base100 md:text-sm">
-          {/* Table Head */}
-          <CoinTableHead />
-          <tbody>
-            {/* Renders a CoinTableRow component for each coin */}
-            {handleSearch().map((coin) => {
-              return <CoinTableRow coin={coin} key={coin.id} />;
-            })}
-          </tbody>
-        </table>
-      </div>
-      {/* Table Pagination component */}
-      <CoinTablePagination
-        onPrev={clickPrevHandler}
-        onNext={clickNextHandler}
-      />
+      {error ? (
+        <p className="mt-20 text-accent font-bold text-2xl text-center">{error}</p>
+      ) : (
+        <>
+          <div className="overflow-auto md:overflow-visible">
+            <table className="relative mx-auto container text-xs text-baseContent w-full bg-base100 md:text-sm">
+              {/* Table Head */}
+              <CoinTableHead />
+              <tbody>
+                {/* Renders a CoinTableRow component for each coin */}
+                {handleSearch().map((coin) => {
+                  return <CoinTableRow coin={coin} key={coin.id} />;
+                })}
+              </tbody>
+            </table>
+          </div>
+          {/* Table Pagination component */}
+          <CoinTablePagination
+            onPrev={clickPrevHandler}
+            onNext={clickNextHandler}
+          />
+        </>
+      )}
     </div>
   );
 };

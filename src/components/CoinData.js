@@ -1,36 +1,17 @@
 import React, { useState } from "react";
 
 const CoinData = ({ coin }) => {
-  const coinRank = coin.market_cap_rank;
-  const coinIcon = coin.image.small;
-  const coinName = coin.name;
-  const coinSymbol = coin.symbol.toUpperCase();
-  const coinCurrentPriceUSD =
-    coin.market_data.current_price.usd;
-  const coinPriceChangePercentage =
-    coin.market_data.price_change_percentage_24h.toFixed(2);
-  const coinCurrentPriceBTC = coin.market_data.current_price.btc;
-  const coinPriceChangePercentageBTC =
-    coin.market_data.price_change_percentage_24h_in_currency.btc.toFixed(2);
-  const coinMarketCap = coin.market_data.market_cap.usd.toLocaleString();
-  const coinCirculatingSupply =
-    coin.market_data.circulating_supply.toLocaleString();
-  const coin24hrVolume = coin.market_data.total_volume.usd.toLocaleString();
-  const coinTotalSupply = coin.market_data.total_supply;
-  const coinMaxSupply = coin.market_data.max_supply;
-  const coinDescription = coin.description.en;
-
   const [description, setDescription] = useState(
-    coinDescription.split(". ")[0]
+    coin.description.en.split(". ")[0]
   );
   const [showMore, setShowMore] = useState(false);
 
   const clickHandler = () => {
     if (showMore) {
-      setDescription(coinDescription.split(". ")[0]);
+      setDescription(coin.description.en.split(". ")[0]);
       setShowMore(false);
     } else {
-      setDescription(coinDescription);
+      setDescription(coin.description.en);
       setShowMore(true);
     }
   };
@@ -41,47 +22,78 @@ const CoinData = ({ coin }) => {
         <div className="flex items-center justify-between">
           {/* Coin Rank */}
           <div className="flex py-1 px-2 bg-neutral rounded-md w-fit text-sm">
-            Rank #{coinRank}
+            Rank #{coin.market_cap_rank}
           </div>
         </div>
 
         {/* Icon, Name, and Symbol */}
         <div className="flex items-center space-x-3">
-          <img className="w-8" src={coinIcon} alt={`${coinName} icon`} />
-          <span className="font-bold text-2xl">{coinName}</span>
+          <img
+            className="w-8"
+            src={coin.image.small}
+            alt={`${coin.name} icon`}
+          />
+          <span className="font-bold text-2xl">{coin.name}</span>
           <span className="font-semibold text-primary text-lg">
-            {coinSymbol}
+            {coin.symbol.toUpperCase()}
           </span>
         </div>
 
         {/* Current Price, Percentage Change */}
         <div className="flex items-center space-x-3">
-          <span className="text-3xl font-bold">${coinCurrentPriceUSD}</span>
-          <div
-            // Change Text Color based on whether it's greater than 0
-            className={`flex items-center space-x-1 text-lg ${
-              coinPriceChangePercentage > 0 ? "text-green-500" : "text-red-500"
-            }`}
-          >
-            <i className="fa-solid fa-caret-up"></i>
-            <span className="font-semibold">{coinPriceChangePercentage}%</span>
-          </div>
+          <span className="text-3xl font-bold">
+            ${coin.market_data.current_price.usd}
+          </span>
+          {!coin.market_data.price_change_percentage_24h ? (
+            <div className="flex items-center space-x-1 text-lg">?</div>
+          ) : (
+            <div
+              // Change Text Color based on whether it's greater than 0
+              className={`flex items-center space-x-1 text-lg ${
+                coin.market_data.price_change_percentage_24h.toFixed(2) > 0
+                  ? "text-green-500"
+                  : "text-red-500"
+              }`}
+            >
+              <i className="fa-solid fa-caret-up"></i>
+              {!coin.market_data.price_change_percentage_24h ? (
+                <span className="font-semibold">?</span>
+              ) : (
+                <span className="font-semibold">
+                  {coin.market_data.price_change_percentage_24h.toFixed(2)}%
+                </span>
+              )}
+            </div>
+          )}
         </div>
 
         {/* Current Price in BTC, Percentage Change in BTC */}
         <div className="flex items-center space-x-2 text-sm">
-          <span className="opacity-70">{coinCurrentPriceBTC} BTC</span>
-          <div
-            // Change Text Color based on whether it's greater than 0
-            className={`flex items-center space-x-1 ${
-              coinPriceChangePercentageBTC > 0
-                ? "text-green-500"
-                : "text-red-500"
-            }`}
-          >
-            <span>{coinPriceChangePercentageBTC}%</span>
-            <i className="fa-solid fa-caret-up"></i>
-          </div>
+          <span className="opacity-70">
+            {coin.market_data.current_price.btc} BTC
+          </span>
+          {!coin.market_data.price_change_percentage_24h_in_currency.btc ? (
+            <div className="flex items-center space-x-1">?</div>
+          ) : (
+            <div
+              // Change Text Color based on whether it's greater than 0
+              className={`flex items-center space-x-1 ${
+                coin.market_data.price_change_percentage_24h_in_currency.btc.toFixed(
+                  2
+                ) > 0
+                  ? "text-green-500"
+                  : "text-red-500"
+              }`}
+            >
+              <span>
+                {coin.market_data.price_change_percentage_24h_in_currency.btc.toFixed(
+                  2
+                )}
+                %
+              </span>
+              <i className="fa-solid fa-caret-up"></i>
+            </div>
+          )}
         </div>
       </div>
 
@@ -90,36 +102,36 @@ const CoinData = ({ coin }) => {
         {/* Market Cap */}
         <div className="flex items-center justify-between py-2 border-b border-white border-opacity-[.12]">
           <span className="opacity-70">Market Cap</span>
-          <span>${coinMarketCap}</span>
+          <span>${coin.market_data.market_cap.usd.toLocaleString()}</span>
         </div>
         {/* Circulating Supply */}
         <div className="flex items-center justify-between py-2 border-b border-white border-opacity-[.12]">
           <span className="opacity-70">Circulating Supply</span>
-          <span>{coinCirculatingSupply}</span>
+          <span>{coin.market_data.circulating_supply.toLocaleString()}</span>
         </div>
         {/* 24hr Volume */}
         <div className="flex items-center justify-between py-2 border-b border-white border-opacity-[.12]">
           <span className="opacity-70">24 Hour Trading Vol</span>
-          <span>${coin24hrVolume}</span>
+          <span>${coin.market_data.total_volume.usd.toLocaleString()}</span>
         </div>
         {/* Total Supply */}
         <div className="flex items-center justify-between py-2 border-b border-white border-opacity-[.12]">
           <span className="opacity-70">Total Supply</span>
           {/* If null, render 'Infinite' Else, render the integer */}
-          {coinTotalSupply === null ? (
+          {coin.market_data.total_supply === null ? (
             <span>Infinite</span>
           ) : (
-            <span>{coinTotalSupply.toLocaleString()}</span>
+            <span>{coin.market_data.total_supply.toLocaleString()}</span>
           )}
         </div>
         {/* Max Supply */}
         <div className="flex items-center justify-between py-2 border-b border-white border-opacity-[.12] lg:col-start-2">
           <span className="opacity-70">Max Supply</span>
           {/* If null, render 'Infinite' Else, render the integer */}
-          {coinMaxSupply === null ? (
+          {!coin.market_data.max_supply ? (
             <span>Infinite</span>
           ) : (
-            <span>{coinMaxSupply.toLocaleString()}</span>
+            <span>{coin.market_data.max_supply.toLocaleString()}</span>
           )}
         </div>
       </div>

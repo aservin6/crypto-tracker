@@ -8,7 +8,6 @@ const CoinTableRow = ({ coin }) => {
   const coinName = coin.name;
   const coinSymbol = coin.symbol.toUpperCase();
   const coinCurrentPrice = coin.current_price;
-  const priceChange = coin.price_change_percentage_24h.toFixed(1);
   const coin24hrVolume = coin.total_volume.toLocaleString();
   const coinMarketCap = coin.market_cap.toLocaleString();
 
@@ -23,32 +22,33 @@ const CoinTableRow = ({ coin }) => {
           <div>
             {/* Links to specified CoinPage */}
             <a
-              className="flex flex-col md:flex-row md:items-center md:gap-2 hover:underline"
+              className="flex flex-col md:flex-row md:items-center md:gap-3 hover:underline"
               href={`/coins/${coinId}`}
             >
               {/* CoinName */}
               <span className="text-slate-200 font-bold">{coinName}</span>
               {/* Coin Symbol */}
-              <span className="text-primary text-[11px]">
-                {coinSymbol}
-              </span>
+              <span className="text-primary text-[11px]">{coinSymbol}</span>
             </a>
           </div>
         </div>
       </td>
       {/* Current Price of coin */}
-      <td className="px-3 text-right">
-        ${coinCurrentPrice}
-      </td>
+      <td className="px-3 text-right">${coinCurrentPrice}</td>
       {/* 24 Price change of coin */}
-      <td
-        className={`px-3 text-right ${
-          // Text color changes depending on variable being > or < 0
-          priceChange > 0 ? "text-green-500" : "text-red-500"
-        }`}
-      >
-        {priceChange}%
-      </td>
+      {coin.price_change_percentage_24h === null ? (
+        <td className="px-3 text-right">?</td>
+      ) : (
+        <td
+          className={`px-3 text-right ${
+            // Text color changes depending on variable being > or < 0
+            coin.price_change_percentage_24h.toFixed(1) > 0 ? "text-green-500" : "text-red-500"
+          }`}
+        >
+          {coin.price_change_percentage_24h.toFixed(1)}%
+        </td>
+      )}
+
       {/* 24hr Volume of coin */}
       <td className="px-3 text-right">${coin24hrVolume}</td>
       {/* Market Cap of coin */}

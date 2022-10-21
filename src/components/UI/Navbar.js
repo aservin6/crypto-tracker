@@ -3,7 +3,7 @@ import React from "react";
 const Navbar = () => {
   let pathName = window.location.pathname;
   return (
-    <nav className="sticky top-0 bg-base100 w-full lg:w-2/3">
+    <nav className="bg-base100 w-full lg:w-2/3 lg:sticky lg:top-0 lg:z-50">
       {/* Flex Container */}
       <div className="container flex items-center justify-between mx-auto py-3 md:py-5">
         {/* Website Branding */}
